@@ -32,9 +32,10 @@ jobs:
         run: |
           kubectl config set-cluster cluster-v1 --server="${{secrets.YNDX_ADDR}}" --insecure-skip-tls-verify=true
           kubectl config set-credentials "${{secrets.YNDX_LOGIN}}" --token="${{secrets.YNDX_TOKEN}}"
-          kubectl config set-context default --cluster=cluster-v1 --user="${{secrets.YNDX_LOGIN}}"
+          kubectl config set-context default --cluster="cluster-v1" --user="${{secrets.YNDX_LOGIN}}"
           kubectl config use-context default
-          helm upgrade trash3 ./myHelm/
+          helm delete helm1
+          helm upgrade helm1 ./myHelm/
           sleep 60
           
       - name: Run API Tests
