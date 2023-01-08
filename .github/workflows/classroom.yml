@@ -16,7 +16,7 @@ jobs:
       # TODO build, publish to docker hub, deploy to k8s
 
       - name: Build images
-        timeout-minutes: 2
+        timeout-minutes: 10
         run: docker-compose build
 
       - name: Login to dockerhub
