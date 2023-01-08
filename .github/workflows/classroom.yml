@@ -34,8 +34,7 @@ jobs:
           kubectl config set-credentials "${{secrets.YNDX_LOGIN}}" --token="${{secrets.YNDX_TOKEN}}"
           kubectl config set-context default --cluster="cluster-v1" --user="${{secrets.YNDX_LOGIN}}"
           kubectl config use-context default
-          helm delete helm1
-          helm upgrade helm1 ./myHelm/
+          helm install helm1 ./myHelm/
           sleep 60
           
       - name: Run API Tests
