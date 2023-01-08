@@ -12,7 +12,7 @@ from dataclasses import dataclass
 app = FastAPI()
 
 port = 8060
-conn = psycopg2.connect(dbname="postgres", user="program", password="test", host="postgres", port="5432")
+conn = psycopg2.connect(dbname="postgres", user="program", password="test", host="postgres-service", port="5432")
 
 sql_path = os.path.dirname(__file__)
 

@@ -1,84 +1,68 @@
 version: "3"
-
 services:
-    
-  postgres:
-    image: library/postgres:13
-    container_name: postgres_lab2_bl1
-    restart: on-failure
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "postgres"
-      POSTGRES_DB: postgres
-    volumes:
-      - db-data:/var/lib/postgresql/data
-      - ./postgres/:/docker-entrypoint-initdb.d/
-    ports:
-      - "5432:5432"
+  # postgres:
+  #   image: library/postgres:13
+  #   container_name: postgres
+  #   restart: on-failure
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: "postgres"
+  #     POSTGRES_DB: postgres
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/data
+  #     - ./postgres/:/docker-entrypoint-initdb.d/
+  #   ports:
+  #     - "5432:5432"
 
-#  pgadmin:
-#    image: chorss/docker-pgadmin4
-#    ports:
-#        - 5050:5050
-#
   gateway:
-    build: v2/python_v2/gateway
-#    network_mode: host
+    image: griffire/lab4-gateway
+    build:
+      context: ./v2/python_v2/gateway
+      dockerfile: Dockerfile
+    container_name: gateway
+    restart: on-failure
     ports:
       - "8080:8080"
-    depends_on:
-      - postgres
-    restart: on-failure
-
-      
-
+    # depends_on:
+    #   - postgres
 
   reservation:
-    build: v2/python_v2/reservation
-    #    network_mode: host
+    image: griffire/lab4-reservation
+    build:
+      context: ./v2/python_v2/reservation
+      dockerfile: Dockerfile
+    container_name: reservation
+    restart: on-failure
     ports:
       - "8070:8070"
-    depends_on:
-      - postgres
-    restart: on-failure
-
-      
-      
-     
+    # depends_on:
+    #   - postgres
 
   loyalty:
-    build: v2/python_v2/loyalty
-#    network_mode:  host
+    image: griffire/lab4-loyalty
+    build:
+      context: ./v2/python_v2/loyalty
+      dockerfile: Dockerfile
+    container_name: loyalty
+    restart: on-failure
     ports:
       - "8050:8050"
-    depends_on:
-      - postgres
-    restart: on-failure
+    # depends_on:
+    #   - postgres
 
-
-#
   payment:
-      build: v2/python_v2/payment
-#      network_mode: host
-      ports:
-        - "8060:8060"
-      depends_on:
-        - postgres
-      restart: on-failure
-
-
-#
-
-
-    
-     
-   
-   
-# TODO добавить сервисы
+    image: griffire/lab4-payment
+    build:
+      context: ./v2/python_v2/payment
+      dockerfile: Dockerfile
+    container_name: payment
+    restart: on-failure
+    ports:
+      - "8060:8060"
+    # depends_on:
+    #   - spread_loyalty
+    #   - spread_payment
+    #   - spread_reservation
 
 volumes:
   db-data:
-  
-
-#
- 
