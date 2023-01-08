@@ -19,16 +19,14 @@ jobs:
         timeout-minutes: 10
         run: docker-compose build
 
-      - name: Login to dockerhub
-      run: |
-        docker login\n ${{secrets.DOCKER_HUB_LOGIN}}\n ${{secrets.DOCKER_HUB_PASSWD}}\n
+#      - name: Login to dockerhub
 #        uses: docker/login-action@v2
 #        with:
 #          Username: ${{secrets.DOCKER_HUB_LOGIN}}
 #          password: ${{secrets.DOCKER_HUB_PASSWD}}
 
-      - name: Push images
-        run: docker-compose push
+#      - name: Push imagess
+#        run: docker-compose push
 
       - name: Deploy
         run: |
