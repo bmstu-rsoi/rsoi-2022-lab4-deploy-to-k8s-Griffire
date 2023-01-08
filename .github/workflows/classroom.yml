@@ -20,10 +20,12 @@ jobs:
         run: docker-compose build
 
       - name: Login to dockerhub
-        uses: docker/login-action@v2
-        with:
-          Username: ${{secrets.DOCKER_HUB_LOGIN}}
-          password: ${{secrets.DOCKER_HUB_PASSWD}}
+      run: |
+        docker login\n ${{secrets.DOCKER_HUB_LOGIN}}\n ${{secrets.DOCKER_HUB_PASSWD}}\n
+#        uses: docker/login-action@v2
+#        with:
+#          Username: ${{secrets.DOCKER_HUB_LOGIN}}
+#          password: ${{secrets.DOCKER_HUB_PASSWD}}
 
       - name: Push images
         run: docker-compose push
